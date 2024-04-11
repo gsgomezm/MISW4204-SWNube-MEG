@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request
 from psycopg2 import Error
 import psycopg2
+from flask_jwt_extended import JWTManager
+import sqlalchemy
+from flask_restful import Api
 
 app = Flask(__name__)
 
@@ -30,6 +33,17 @@ def connection_db():
         return connection, cursor
     except (Exception, Error) as error:
         print("Error al conectar a PostgreSQL:", error)
+def add_urls(app):
+    api = Api(app)
+    api.add_resource(LogIn, '/login')
+
+def create_flask_app():
+    app.config['JWT_SECRET_KEY'] = 'frase-secreta'
+
+    app_context = app.app_context()
+    app_context.push()
+    add_urls(app)
+    jwt = JWTManager(app)
 
 def close_connection_db(connection, cursor):
     if connection:
