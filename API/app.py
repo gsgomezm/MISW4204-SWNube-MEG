@@ -1,13 +1,10 @@
+from services.login import LogIn
 from flask import Flask, render_template, request
-from psycopg2 import Error
-import psycopg2
 from flask_jwt_extended import JWTManager
 import sqlalchemy
 from flask_restful import Api
 
 app = Flask(__name__)
-
-
 
 @app.route('/Task', methods=['GET'])
 def process():
@@ -19,20 +16,28 @@ def process2():
    message = f"Hello,! (POST request)"
    return message
 
-def connection_db():
-    try:
-        connection = psycopg2.connect(
-            user="root",
-            password="2534946",
-            host="localhost",
-            port="5432",
-            database="fpvdb"
+def connect_db() -> sqlalchemy.engine.base.Engine:
+    
+    db_host = "34.95.252.108"
+    db_user = "postgres"
+    db_pass = "$'khs7QF`nykVDF5"
+    db_name = "fpv-database"
+    db_port = "5432"
+
+    pool = sqlalchemy.create_engine(
+        sqlalchemy.engine.url.URL.create(
+            drivername="postgresql+pg8000",
+            username=db_user,
+            password=db_pass,
+            host=db_host,
+            port=db_port,
+            database=db_name,
         )
-        cursor = connection.cursor()
-        print("Conexión exitosa a PostgreSQL")
-        return connection, cursor
-    except (Exception, Error) as error:
-        print("Error al conectar a PostgreSQL:", error)
+    )
+    return pool
+
+db = connect_db()
+
 def add_urls(app):
     api = Api(app)
     api.add_resource(LogIn, '/login')
@@ -45,11 +50,12 @@ def create_flask_app():
     add_urls(app)
     jwt = JWTManager(app)
 
-def close_connection_db(connection, cursor):
-    if connection:
-        cursor.close()
-        connection.close()
+    @jwt.user_lookup_loader
+    def user_lookup_callback(_jwt_header, jwt_data):
+        return jwt_data["sub"]
+    
+    return app
 
 if __name__ == '__main__':
-  connection_db
+  app =  create_flask_app()
   app.run(debug=True)
