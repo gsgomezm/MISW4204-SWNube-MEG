@@ -1,8 +1,10 @@
 from services.login import LogIn
+from services.sing_up import SingUp
 from flask import Flask, render_template, request
 from flask_jwt_extended import JWTManager
-import sqlalchemy
 from flask_restful import Api
+from models.model import db, engine
+
 
 app = Flask(__name__)
 
@@ -16,31 +18,12 @@ def process2():
    message = f"Hello,! (POST request)"
    return message
 
-def connect_db() -> sqlalchemy.engine.base.Engine:
-    
-    db_host = "34.95.252.108"
-    db_user = "postgres"
-    db_pass = "$'khs7QF`nykVDF5"
-    db_name = "fpv-database"
-    db_port = "5432"
 
-    pool = sqlalchemy.create_engine(
-        sqlalchemy.engine.url.URL.create(
-            drivername="postgresql+pg8000",
-            username=db_user,
-            password=db_pass,
-            host=db_host,
-            port=db_port,
-            database=db_name,
-        )
-    )
-    return pool
-
-db = connect_db()
 
 def add_urls(app):
     api = Api(app)
-    api.add_resource(LogIn, '/login')
+    api.add_resource(LogIn, '/auth/login')
+    api.add_resource(SingUp, '/auth/signup')
 
 def create_flask_app():
     app.config['JWT_SECRET_KEY'] = 'frase-secreta'
@@ -58,4 +41,6 @@ def create_flask_app():
 
 if __name__ == '__main__':
   app =  create_flask_app()
+  db.metadata.create_all(engine)
   app.run(debug=True)
+  
