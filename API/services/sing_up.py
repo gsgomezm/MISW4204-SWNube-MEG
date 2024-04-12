@@ -9,6 +9,9 @@ class SingUp(Resource):
     def post(self):
         if request.json["password1"] != request.json["password2"]:
             return "The password are not equal",  406
+        user = db_session.query(User).filter(User.email == request.json["email"]).first()
+        if user:
+            return "The email is already registered",  406
         new_user = User(username = request.json["username"],
                         password = request.json["password1"],
                         email = request.json["email"])

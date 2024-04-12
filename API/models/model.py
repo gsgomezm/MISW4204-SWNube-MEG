@@ -1,7 +1,7 @@
 import sqlalchemy
 from sqlalchemy import UniqueConstraint
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import sessionmaker
 
 db = declarative_base()
@@ -32,7 +32,18 @@ db_session = db_session()
 
 class User(db):
     __tablename__ = 'user'
+    __table_args__ = (UniqueConstraint('email', name='unique_email'),)
     id = Column(Integer, primary_key=True)
     username = Column(String(255), nullable=True)
     password = Column(String(255), nullable=True)
     email = Column(String(255), nullable=True)
+
+
+class Video(db):
+    __tablename__ = 'video'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(500), nullable=True)
+    time_stamp = Column(DateTime, nullable=True)
+    path_folder = Column(String(1000), nullable=True)
+    status = Column(String(255), nullable=True)
+    user_id = Column(Integer,  ForeignKey('user.id'))
