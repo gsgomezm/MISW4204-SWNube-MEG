@@ -3,6 +3,7 @@ from sqlalchemy import UniqueConstraint
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import sessionmaker
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
 db = declarative_base()
 
@@ -46,4 +47,10 @@ class Video(db):
     time_stamp = Column(DateTime, nullable=True)
     path_folder = Column(String(1000), nullable=True)
     status = Column(String(255), nullable=True)
-    user_id = Column(Integer,  ForeignKey('user.id'))
+    user_id = Column(Integer)
+
+class VideoSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = Video
+        include_relationships = True
+        load_instance = True

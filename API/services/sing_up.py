@@ -17,4 +17,4 @@ class SingUp(Resource):
                         email = request.json["email"])
         db_session.add(new_user)
         db_session.commit()
-        return "Account created successfully", 200
+        return {"message": "Account created successfully"}, 200
