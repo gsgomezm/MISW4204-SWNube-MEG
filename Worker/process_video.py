@@ -1,6 +1,7 @@
 import os
 from update_video_db import update_video_status
 
+
 actual_dir = os.path.dirname(os.path.abspath(__file__))[0: len(os.path.dirname(os.path.abspath(__file__))) - 7]
 base_dir = os.path.join(actual_dir, "VideosFpv")
 editing_dir = os.path.join(actual_dir, "VideosFpv", "Editing")

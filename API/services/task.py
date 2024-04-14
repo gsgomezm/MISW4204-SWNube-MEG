@@ -5,6 +5,7 @@ from flask_restful import Resource
 from sqlalchemy import and_, asc, desc
 from models.model import VideoSchema, db_session,  Video
 import datetime
+from cola import registrar_log
 
 class Task(Resource):
     @jwt_required()
@@ -32,6 +33,7 @@ class Task(Resource):
         timestamp = datetime.datetime.now()
         user_id =current_user.id
         video = Video(name="video_dron",time_stamp=timestamp,path_folder=file_name,status="uploaded",user_id=user_id)
+        registrar_log.delay(video, timestamp)      
         db_session.add(video)
         db_session.commit()
         #logica cola
