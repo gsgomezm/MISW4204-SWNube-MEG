@@ -10,7 +10,9 @@ from typing import Any, List
 from flask import jsonify
 from models.model import db, engine,User,db_session
 
+
 app = Flask(__name__)
+
 
 
 def add_urls(app):

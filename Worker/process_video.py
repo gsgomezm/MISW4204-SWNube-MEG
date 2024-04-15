@@ -1,5 +1,14 @@
 import os
 from update_video_db import update_video_status
+from celery import Celery
+
+
+celery_app = Celery('task', broker='redis://localhost:6379/0')
+
+@celery_app.task()
+def registrar_log(video, fecha):
+    with open('post_txt', 'a+') as file:
+        file.write('{} - video posteado: {}\n'.format(video, fecha))
 
 
 actual_dir = os.path.dirname(os.path.abspath(__file__))[0: len(os.path.dirname(os.path.abspath(__file__))) - 7]
@@ -7,6 +16,7 @@ base_dir = os.path.join(actual_dir, "VideosFpv")
 editing_dir = os.path.join(actual_dir, "VideosFpv", "Editing")
 processed_dir = os.path.join(actual_dir, "VideosFpv", "Processed")
 
+@celery_app.task()
 def process_video(video_id, url_video):
     try:
         create_dirs()
@@ -15,13 +25,13 @@ def process_video(video_id, url_video):
         parts = video_filename.split(".mp4")
         name = parts[0]
         download_video(url_video, video_filename)
-        # file_concat_path = create_file_conc(name, video_filename)
-        # edit_video(video_filename, file_concat_path)
-        # remove_file("Editing", name + ".txt")
-        # remove_file("Editing", video_filename)
-        # remove_file("Editing", "c_" + video_filename)
-        # remove_file("Editing", "l_" + video_filename)
-        # update_video_status(video_id, "processed")
+        file_concat_path = create_file_conc(name, video_filename)
+        #edit_video(video_filename, file_concat_path)
+        #remove_file("Editing", name + ".txt")
+        #remove_file("Editing", video_filename)
+        #remove_file("Editing", "c_" + video_filename)
+        #remove_file("Editing", "l_" + video_filename)
+        #update_video_status(video_id, "processed")
     except OSError as e:
         print(f"Error: {e.strerror}")
 
@@ -37,6 +47,7 @@ def edit_video(video_filename, file_concat_path):
 def download_video(url_video, video_name):
     video_editing = os.path.join(editing_dir, video_name) 
     print(video_editing)
+    print(url_video)
     os.system(f"curl -o {video_editing} {url_video}")
     
 def create_file_conc(video_name, file_name):
