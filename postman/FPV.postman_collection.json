@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "cfe2c3b0-e2f9-49e1-b9e0-30f6f49e82c0",
+		"_postman_id": "e41cf23a-2448-425f-8648-f148ff9b25ff",
 		"name": "FPV",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "10854269",
-		"_collection_link": "https://www.postman.com/miguel1999parra/workspace/miso-nube/collection/10854269-cfe2c3b0-e2f9-49e1-b9e0-30f6f49e82c0?action=share&source=collection_link&creator=10854269"
+		"_exporter_id": "15006847",
+		"_collection_link": "https://satp-j.postman.co/workspace/SiMM~6a85c4c4-8aec-45be-b536-bcf0e75b6de5/collection/15006847-e41cf23a-2448-425f-8648-f148ff9b25ff?action=share&source=collection_link&creator=15006847"
 	},
 	"item": [
 		{
@@ -22,13 +22,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/auth/signup",
+					"raw": "http://104.197.15.49:5000/auth/signup",
 					"protocol": "http",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"104",
+						"197",
+						"15",
+						"49"
 					],
 					"port": "5000",
 					"path": [
@@ -40,7 +40,7 @@
 			"response": []
 		},
 		{
-			"name": "login",
+			"name": "Login",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -54,13 +54,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/auth/login",
+					"raw": "http://104.197.15.49:5000/auth/login",
 					"protocol": "http",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"104",
+						"197",
+						"15",
+						"49"
 					],
 					"port": "5000",
 					"path": [
@@ -72,16 +72,26 @@
 			"response": []
 		},
 		{
-			"name": "task",
+			"name": "Task",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMzE1NTY3OCwianRpIjoiNTM5NDg3MTctYTU4YS00NGVjLWI0YTUtOTIxZDRjZmQ1ZDMwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTIsIm5iZiI6MTcxMzE1NTY3OCwiY3NyZiI6ImM1MjcxNmJhLTYxMTMtNDg3Yy04NzFhLWVjN2QzNDJiYWFjMCIsImV4cCI6MTcxMzE1NjU3OH0.W_8MjKBIU4g85C_6cgdr-iNqu1AwyoizX0bcyt_7kjc",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n   \"max\":1,\r\n   \"order\":1\r\n}",
+					"raw": "{\r\n   \"max\":1000,\r\n   \"order\":1\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -89,13 +99,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/task",
+					"raw": "http://104.197.15.49:5000/task",
 					"protocol": "http",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"104",
+						"197",
+						"15",
+						"49"
 					],
 					"port": "5000",
 					"path": [
@@ -106,7 +116,7 @@
 			"response": []
 		},
 		{
-			"name": "task_id",
+			"name": "Task_Id",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -121,13 +131,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:5000/task/5",
+					"raw": "http://104.197.15.49:5000/task/5",
 					"protocol": "http",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"104",
+						"197",
+						"15",
+						"49"
 					],
 					"port": "5000",
 					"path": [
@@ -139,14 +149,14 @@
 			"response": []
 		},
 		{
-			"name": "task",
+			"name": "Task",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMzA1NjA1OCwianRpIjoiYzg3ODhkMDYtZjZkNy00MmZhLTgwYjYtZWUxMmRjYWRlZWEzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTIsIm5iZiI6MTcxMzA1NjA1OCwiY3NyZiI6ImQ4ZTEzODk1LWU3NDMtNDg2Ni1hNmFmLTA0YTZjYmQzODZkZSIsImV4cCI6MTcxMzA1Njk1OH0.XFRExBqsdNBpZpSVjeISRQmYgt8HNQ9LhRDxpC67tV0",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMzE1NTY3OCwianRpIjoiNTM5NDg3MTctYTU4YS00NGVjLWI0YTUtOTIxZDRjZmQ1ZDMwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTIsIm5iZiI6MTcxMzE1NTY3OCwiY3NyZiI6ImM1MjcxNmJhLTYxMTMtNDg3Yy04NzFhLWVjN2QzNDJiYWFjMCIsImV4cCI6MTcxMzE1NjU3OH0.W_8MjKBIU4g85C_6cgdr-iNqu1AwyoizX0bcyt_7kjc",
 							"type": "string"
 						}
 					]
@@ -155,7 +165,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"filename\":\"VideosFpv/Editing/video_dron.mp4\"\r\n\t\t\r\n\r\n}",
+					"raw": "{\r\n    \"filename\":\"https://file-examples.com/wp-content/storage/2017/04/file_example_MP4_480_1_5MG.mp4\"\r\n\t\t\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -163,13 +173,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/task",
+					"raw": "http://104.197.15.49:5000/task",
 					"protocol": "http",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"104",
+						"197",
+						"15",
+						"49"
 					],
 					"port": "5000",
 					"path": [
@@ -180,7 +190,7 @@
 			"response": []
 		},
 		{
-			"name": "task_id",
+			"name": "Task_Id",
 			"request": {
 				"auth": {
 					"type": "bearer",
