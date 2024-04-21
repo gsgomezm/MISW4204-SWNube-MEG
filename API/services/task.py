@@ -7,7 +7,7 @@ from models.model import VideoSchema, db_session,  Video
 import datetime
 from celery import Celery
 
-celery_app = Celery('task', broker='redis://localhost:6379/0')
+celery_app = Celery('task', broker='redis://34.171.87.185:6379/0')
 
 class Task(Resource):
     @jwt_required()
