@@ -2,7 +2,7 @@
 
 ## Ejecución de la Aplicación
 
-El backend de la aplicación se encuentra desplegado en servidores en la nube. Por lo tanto, no es necesario realizar alguna configuración adicional para ejecutar la aplicación. Puedes utilizar la colección de Postman que se encuentra en la carpeta raiz del repositorio llamada `postman` para efectuar solicitudes sobre la `API` y crear `Tasks` o tareas de procesamiento de videos.
+El backend de la aplicación se encuentra desplegado en servidores en la nube. Por lo tanto, no es necesario realizar alguna configuración adicional para ejecutar la aplicación. Puedes utilizar la colección de Postman que se encuentra en la carpeta raiz del repositorio llamada `Postman` para efectuar solicitudes sobre la `API` y crear `Tasks` o tareas de procesamiento de videos.
 
 ## Configuración del Proyecto
 
