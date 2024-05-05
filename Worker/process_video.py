@@ -1,4 +1,5 @@
 import os
+from bucket import upload_file
 from update_video_db import update_video_status
 from celery import Celery
 
@@ -8,6 +9,9 @@ actual_dir = os.path.dirname(os.path.abspath(__file__))[0: len(os.path.dirname(o
 base_dir = os.path.join(actual_dir, "Processing")
 editing_dir = os.path.join(actual_dir, "Processing", "Editing")
 processed_dir = os.path.join(actual_dir, "Processing", "Processed")
+
+downloaded_blob = "Downloaded"
+processed_blob = "Processed"
 
 @celery_app.task()
 def process_video(video_id, url_video):
@@ -33,15 +37,19 @@ def edit_video(video_filename, file_concat_path):
     file_c = os.path.join(editing_dir, "c_" + video_filename)
     file_l = os.path.join(editing_dir, "l_" + video_filename)
     file_p = os.path.join(processed_dir, video_filename) 
-    destiny_path = os.path.join(actual_dir, "VideosFpv") 
+    # destiny_path = os.path.join(actual_dir, "VideosFpv")
+    processed_blob_file = processed_blob + "/" + video_filename 
     os.system('ffmpeg -f concat -safe 0 -i "' + file_concat_path + '" -c copy -movflags faststart "' + file_c + '"')
     os.system('ffmpeg -ss 0 -t 20  -i "' + file_c + '" -c copy -movflags faststart "' + file_l + '"')
     os.system('ffmpeg -i "' + file_l + '" -c copy -aspect 16/9 "' + file_p + '"')
-    os.system(f"sudo mv {file_path} {destiny_path}")
+    # os.system(f"sudo mv {file_path} {destiny_path}")
+    upload_file(processed_blob_file, file_path)
 
 def download_video(url_video, video_name):
-    video_editing = os.path.join(editing_dir, video_name) 
+    video_editing = os.path.join(editing_dir, video_name)
+    downloaded_blob_file = downloaded_blob + "/" + video_name
     os.system(f"curl -o {video_editing} {url_video}")
+    upload_file(downloaded_blob_file, video_editing)
     
 def create_file_conc(video_name, file_name):
     file_path = os.path.join(editing_dir, video_name + ".txt")
