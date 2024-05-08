@@ -7,7 +7,17 @@ from models.model import VideoSchema, db_session,  Video
 import datetime
 from celery import Celery
 
-celery_app = Celery('task', broker='redis://34.171.87.185:6379/0')
+from google.cloud import pubsub_v1
+
+# Set your Google Cloud Project ID
+project_id = "1018966632926"
+# Set the Pub/Sub topic name you created
+topic_name = "video"
+
+# Create a PublisherClient
+publisher = pubsub_v1.PublisherClient()
+# Create the topic path
+topic_path = publisher.topic_path(project_id, topic_name)
 
 class Task(Resource):
     @jwt_required()
@@ -38,5 +48,17 @@ class Task(Resource):
         db_session.add(video)
         db_session.commit()
         #logica cola
-        celery_app.send_task('process_video.process_video', args=[video.id, video.path_folder])
+        
+        message_data=[video.id, video.path_folder]
+        # Convert all items to strings
+        message_data = [str(item) for item in message_data]
+        # Data should be in bytes
+        message_string = '\n'.join(message_data)
+        message_bytes = message_string.encode("utf-8")
+        # Publish the message
+        future = publisher.publish(topic_path, data=message_bytes)
+        # Wait for the message to be published
+        future.result()
+        print(f"Published message to {topic_path}.")
         return  {"message": "Task created successfully"}
+
