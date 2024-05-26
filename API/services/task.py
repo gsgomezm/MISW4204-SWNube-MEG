@@ -5,7 +5,8 @@ from flask_restful import Resource
 from sqlalchemy import and_, asc, desc
 from models.model import VideoSchema, db_session,  Video
 import datetime
-from celery import Celery
+# from celery import Celery
+from flask.views import MethodView
 
 from google.cloud import pubsub_v1
 
@@ -19,7 +20,7 @@ publisher = pubsub_v1.PublisherClient()
 # Create the topic path
 topic_path = publisher.topic_path(project_id, topic_name)
 
-class Task(Resource):
+class Task(MethodView):
     @jwt_required()
     def get(self):
         # Get query parameters
