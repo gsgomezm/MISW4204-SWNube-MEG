@@ -3,8 +3,9 @@ from flask_jwt_extended import create_access_token
 from flask_restful import Resource
 from sqlalchemy import and_
 from models.model import db_session, User
+from flask.views import MethodView
 
-class LogIn(Resource):
+class LogIn(MethodView):
 
     def post(self):
         user = db_session.query(User).filter(User.email == request.json["email"],

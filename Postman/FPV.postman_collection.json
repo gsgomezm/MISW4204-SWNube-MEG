@@ -14,7 +14,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\" : \"dron1234567\",\r\n    \"password1\" : \"dron123456\",\r\n    \"password2\" : \"dron123456\",\r\n    \"email\" : \"dron1234567@mail.com\"\r\n}",
+					"raw": "{\r\n    \"username\" : \"dron123456178\",\r\n    \"password1\" : \"dron123456\",\r\n    \"password2\" : \"dron123456\",\r\n    \"email\" : \"dron123456178@mail.com\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -22,10 +22,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{baseUrl}}/auth/signup",
-					"protocol": "http",
+					"raw": "{{protocol}}://{{basUrl}}/auth/signup",
+					"protocol": "{{protocol}}",
 					"host": [
-						"{{baseUrl}}"
+						"{{basUrl}}"
 					],
 					"path": [
 						"auth",
@@ -64,10 +64,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{baseUrl}}/auth/login",
-					"protocol": "http",
+					"raw": "{{protocol}}://{{basUrl}}/auth/login",
+					"protocol": "{{protocol}}",
 					"host": [
-						"{{baseUrl}}"
+						"{{basUrl}}"
 					],
 					"path": [
 						"auth",
@@ -97,7 +97,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n   \"max\":1000,\r\n   \"order\":1\r\n}",
+					"raw": "{\r\n    \"max\": 10,\r\n    \"order\": 1\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -105,10 +105,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{baseUrl}}/task",
-					"protocol": "http",
+					"raw": "{{protocol}}://{{basUrl}}/task",
+					"protocol": "{{protocol}}",
 					"host": [
-						"{{baseUrl}}"
+						"{{basUrl}}"
 					],
 					"path": [
 						"task"
@@ -133,10 +133,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://{{baseUrl}}/task/{{taskId}}",
-					"protocol": "http",
+					"raw": "{{protocol}}://{{basUrl}}/task/{{taskId}}",
+					"protocol": "{{protocol}}",
 					"host": [
-						"{{baseUrl}}"
+						"{{basUrl}}"
 					],
 					"path": [
 						"task",
@@ -160,10 +160,17 @@
 					]
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxNTU2MzY2OCwianRpIjoiYWZjZTg2ZWEtMTZjZS00Y2JkLWFlM2UtYzk0ODA5Njc5YWY4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTIsIm5iZiI6MTcxNTU2MzY2OCwiY3NyZiI6ImZmN2IxNTU1LWFhM2UtNDZjNy05MjVmLTc3NDFlNWRkMjk3ZSIsImV4cCI6MTcxNTU2NDU2OH0.U5QyB0Q2vKTToupIUOa62kt43sk61YyCbTWhFJhdcG4",
+						"type": "text",
+						"disabled": true
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"filename\":\"https://file-examples.com/wp-content/storage/2017/04/file_example_MP4_480_1_5MG.mp4\"\r\n\t\t\r\n\r\n}",
+					"raw": "{\r\n    \"filename\":\"https://raw.githubusercontent.com/gsgomezm/MISW4204-SWNube-MEG/main/VideosFpv/Editing/dron.mp4\"\r\n\t\t\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -171,10 +178,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{baseUrl}}/task",
-					"protocol": "http",
+					"raw": "{{protocol}}://{{basUrl}}/task",
+					"protocol": "{{protocol}}",
 					"host": [
-						"{{baseUrl}}"
+						"{{basUrl}}"
 					],
 					"path": [
 						"task"
@@ -199,10 +206,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://{{baseUrl}}/task/{{taskId}}",
-					"protocol": "http",
+					"raw": "{{protocol}}://{{basUrl}}/task/{{taskId}}",
+					"protocol": "{{protocol}}",
 					"host": [
-						"{{baseUrl}}"
+						"{{basUrl}}"
 					],
 					"path": [
 						"task",
@@ -237,7 +244,7 @@
 	],
 	"variable": [
 		{
-			"key": "baseUrl",
+			"key": "basUrl",
 			"value": "34.111.230.205"
 		},
 		{
@@ -247,6 +254,11 @@
 		{
 			"key": "token",
 			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxNDkyMDU5OCwianRpIjoiNmIxMGMyYWQtYmE4MC00MTg5LWEyY2QtNDY4Y2NmYzhmZDgwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTIsIm5iZiI6MTcxNDkyMDU5OCwiY3NyZiI6ImZlYjY4Njg4LTFjM2QtNDY0Ni05YjJkLWE2NTBlYzIxNzMwYSIsImV4cCI6MTcxNDkyMTQ5OH0.PkS_OJbPxS9rQw0wV7HjyDqS4VrjRaYm7I3py3RJ0fQ"
+		},
+		{
+			"key": "protocol",
+			"value": "http",
+			"type": "string"
 		}
 	]
 }

@@ -3,8 +3,9 @@ from flask_jwt_extended import create_access_token
 from flask_restful import Resource
 from sqlalchemy import and_
 from models.model import db_session, User
+from flask.views import MethodView
 
-class SingUp(Resource):
+class SingUp(MethodView):
 
     def post(self):
         if request.json["password1"] != request.json["password2"]:
